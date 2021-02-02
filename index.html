@@ -5,23 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100&display=swap" rel="stylesheet">
     <script defer src="./js/script.js"></script>
+    <script src="https://kit.fontawesome.com/3df4f3cd02.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Let's Get Cooking!</h1>
-    <form action="" id="pantry">
+    <section id="submit-button" class="head">
+        <h1>Let's Get Cooking!</h1>
+        <i class="fas fa-chevron-circle-right fa-lg" id="submit"></i>
+        <!-- <input type="submit" id="submit"> -->
+    </section>
+            
+    <form id="pantry" class="sidebar">
         <input type="text" id="text-bar">
         <button>add to pantry</button>
-    </form>
-    <ul>
-        <!-- pantry will be inserted here -->
-    </ul>
-    <form id="submit-button">
-        <input type="submit" id="submit">
+        <ul>
+            <!-- pantry will populate here -->
+        </ul>
     </form>
     
-    <div id="image-container">
-
+    <div id="recipe-container" class="main">
+        <div id="images">
+            <a>Food<img src="https://spoonacular.com/recipeImages/turkish-chickpea-burgers-1118357.jpg" alt=""></a>
+            <a>Food<img src="https://spoonacular.com/recipeImages/turkish-chickpea-burgers-1118357.jpg" alt=""></a>
+            <a>Food<img src="https://spoonacular.com/recipeImages/turkish-chickpea-burgers-1118357.jpg" alt=""></a>
+            <a>Food<img src="https://spoonacular.com/recipeImages/turkish-chickpea-burgers-1118357.jpg" alt=""></a>
+            <a>Food<img src="https://spoonacular.com/recipeImages/turkish-chickpea-burgers-1118357.jpg" alt=""></a>
+            <a>Food<img src="https://spoonacular.com/recipeImages/turkish-chickpea-burgers-1118357.jpg" alt=""></a>
+            <!-- recipes will populate here -->
+        </div>
     </div>
 </body>
 </html>

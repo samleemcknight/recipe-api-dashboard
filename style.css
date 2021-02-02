@@ -3,20 +3,121 @@
     margin: 0;
 }
 
-h1 {
-    text-align: center;
+body {
+    font-family: 'Spartan', sans-serif;
+    display: grid;
+    grid-template-columns: auto 90vw;
+    grid-template-rows: 15vh 85vh;
+    grid-template-areas: 
+        "sdbr head"
+        "sdbr main";
+    background-color: seashell;
 }
 
-#pantry {
+/* head */
+
+.head {
+    grid-area: head;
+    background: linear-gradient(#cbcbf5e1, rgba(255, 245, 238, 0.945));
+}
+
+h1 {
+    text-align: center;
     margin: 10px;
 }
 
-#submit {
-    margin-left: 10px;
+#submit-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-#image-container {
-    display: grid;
-    grid-template-columns: 300px, 300px, 300px;
-    grid-template-rows: 1fr, 1fr, 1fr;
+input {
+    margin: 20px;
+    height: 20px;
 }
+
+#submit {
+    margin-top: 15px;
+    opacity: 0.7
+}
+
+#submit:hover {
+    opacity: 1;
+}
+
+/* pantry sidebar */
+.sidebar {
+    grid-area: sdbr;
+    border-right: 1px solid rgb(138, 136, 132);
+}
+
+#text-bar {
+    margin: 20px 10px 10px 10px;
+    justify-content: center;
+}
+
+button {
+    padding: 3px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+/* main container */
+
+.main {
+    grid-area: main;
+}
+
+#images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+img {
+    width: 240px;
+    object-fit: cover;
+    border-radius: 20%;
+    grid-column: span 1;
+    margin: 10px;
+}
+
+img:hover {
+    animation-name: fade;
+    animation-fill-mode: both;
+    animation-duration: 100ms;
+}
+
+@keyframes fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+li {
+    margin: 10px;
+}
+
+@media only screen and (max-width: 640px) {
+    body {
+        display: grid;
+        grid-template-columns: auto 40vw;
+        grid-template-rows: auto 15vh 60vh;
+        grid-template-areas: 
+            "sdbr sdbr"
+            "head head"
+            "main main";
+    }
+    #submit-button, h1 {
+        flex-direction: column;
+    }
+    #submit {
+        width: 150px;
+        justify-content: center;
+    }
+} 
