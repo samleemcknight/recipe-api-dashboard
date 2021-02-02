@@ -7,7 +7,7 @@ body {
     font-family: 'Spartan', sans-serif;
     display: grid;
     grid-template-columns: 1fr 80vw;
-    grid-template-rows: 15vh 85vh;
+    grid-template-rows: 15vh 100vh;
     grid-template-areas: 
         "sdbr head"
         "sdbr main";
@@ -26,6 +26,7 @@ h1 {
     text-align: center;
     position: relative;
     margin: 10px;
+    opacity: 0.7;
 }
 
 #submit-button {
@@ -34,7 +35,7 @@ h1 {
     justify-content: center;
 }
 
-input {
+.head>input {
     margin: 20px;
     height: 20px;
 }
@@ -54,19 +55,71 @@ input {
     border-right: 1px solid rgb(138, 136, 132);
 }
 
+#pantry {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#pantry>p {
+    font-size: 0.9rem;
+    font-family: Helvetica;
+    margin: 0 auto 5px auto;
+    font-weight: 100;
+}
+
+#diet {
+    margin: 0 auto 10px auto;  
+    width: 150px;
+}
+
 #text-bar {
-    margin: 20px 10px 10px 10px;
-    justify-content: center;
+    margin: 20px 10px 0 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 button {
     padding: 3px;
-    margin: 10px;
+    margin: 10px auto 10px auto;
+    width: 150px;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Spartan', sans-serif;
+    font-weight: 500;
 }
 
+button:hover {
+    background-color: rgb(96, 121, 129);
+}
+
+#spicy-option {
+    margin: 10px auto;
+    /* margin-left: 20px;
+    margin-top: 10px; */
+}
+
+label {
+    font-size: 0.8rem;
+    font-family: Helvetica;
+    font-weight: 150;
+    align-items: center;
+    font-style: italic;
+}
+
+
 li {
-    margin: 10px;
+    margin-top: 10px;
+    margin-left: 40px;
+    font-family: Helvetica;
+    font-weight: 300;
+    list-style-type: none;
+}
+
+li:hover {
+    text-decoration: underline;
 }
 
 /* main container */
@@ -94,40 +147,31 @@ img {
     grid-column: span 1;
     margin: 10px;
     border: solid gray 2px;
+    opacity: 0.9;
+    transition: opacity 650ms;
 }
 
 img:hover {
-    animation-name: fade;
-    animation-fill-mode: forwards;
-    animation-duration: 100ms;
+    opacity: 0;
 }
 
 #meal-titles {
     position: absolute;
     display: grid;
-    grid-template-columns: 40vw 40vw;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 262px 262px 262px;
     justify-items: center;
-    padding: 30px 100px 30px 0px;
 }
 
 #meal-titles>p {
-    margin: 30px 15vw 0 15vw;
+    margin: 70px 13vw 0 13vw;
     z-index: -1;
-    text-decoration: none;
+    font-weight: 200;
+    line-height: 1.5rem;
+    text-align: center;
 }
 
-
-@keyframes fade {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0; 
-    }
-}
-
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 768px) {
     body {
         display: grid;
         grid-template-columns: auto 40vw;
@@ -154,3 +198,9 @@ img:hover {
         
     }
 } 
+
+/* haven't formated for larger screens yet */
+
+/* @media only screen and (min-width: 1024px) {
+    
+} */

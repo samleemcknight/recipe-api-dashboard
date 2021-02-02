@@ -5,6 +5,20 @@ const button = document.querySelector("button")
 const pantryList = document.querySelector("ul")
 const images = document.getElementById("images")
 const submit = document.getElementById("submit")
+const dietSelector = document.querySelector('select')
+const fetchURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query="
+const headers = {
+    "method": "GET",
+    "headers": {
+        "x-rapidapi-key": "37daf3cd7cmshd6e976bb1dbe4dep11f211jsn70154af64eb3",
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+    } }
+
+let spicyButton = document.getElementById("spicy")
+let spicySearch = null
+if (spicyButton.checked === true) {
+    spicySearch = "spicy"
+} 
 
 //currently defined here to help with console.logging
 let elEyes = null
@@ -36,16 +50,16 @@ const imageCreator = (recipes) => {
     }
 }
 
-const randomizer = (arr) => {
+function randomizer(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
-
-button.addEventListener("click", (evt) => {
+function createList(evt) {
     evt.preventDefault()
     let li = document.createElement("li")
+    li.setAttribute('title', 'click to remove')
     li.textContent = textBar.value
     pantryList.appendChild(li)
     elEyes = document.querySelectorAll('li')
@@ -54,54 +68,59 @@ button.addEventListener("click", (evt) => {
     textBar.value = ''
     ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '%20'))
     randomizer(ingredientList)
-})
+
+    //event listener to allow the user to remove list items
+    li.addEventListener("click", (evt) => {
+        ingredientList = ingredientList.filter(word => word !== li.textContent)
+        li.textContent = ''
+    })
+}
+
+button.addEventListener("click", createList)
 
 submit.addEventListener("click", (evt) => {
     evt.preventDefault()
     // resets images in case 
-    images.innerHTML = ''
     document.getElementById("meal-titles").innerHTML = ''
-    fetch(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}`,
-    {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "37daf3cd7cmshd6e976bb1dbe4dep11f211jsn70154af64eb3",
-                "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
-            }
-        })
-        .then((responseData) => {
-            return responseData.json()
-        })
-        .then((jsonData) => {
-            recipes = jsonData.results
-            randomizer(recipes)
-            imageCreator(recipes)
-        })
-})
+    images.innerHTML = ''
+    let dietaryRequirements = dietSelector[dietSelector.selectedIndex].textContent
+    if (spicyButton.checked === true) {
+        spicySearch = "spicy"
+    } 
 
-
-// for Tasty API - might use later, put testing out Recipe Puppy First
-
-// submit.addEventListener("click", (evt) => {
-//     evt.preventDefault()
-//     let ingredientList = []
-//     for (let i = 0; i < elEyes.length; i++) {
-//         ingredientList.push(elEyes[i].innerText)
-//     }
-//         fetch(`https://tasty.p.rapidapi.com/recipes/list`, {
-//             "method": "GET",
-//             "headers": {
-//                 "x-rapidapi-key": "37daf3cd7cmshd6e976bb1dbe4dep11f211jsn70154af64eb3",
-//                 "x-rapidapi-host": "tasty.p.rapidapi.com"
-//             }
-//         })
-//             .then((responseData) => {
-//                 return responseData.json()
-//             })
-//             .then((jsonData) => {
-//                 recipes = jsonData.results
-//                 console.log(recipes)
-//             })
+    if (dietSelector.selectedIndex === 0) {
+        fetch(`${fetchURL}${spicySearch}%2C${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}&number=100`, headers)
+            .then((responseData) => {
+                return responseData.json()
+            })
+            .then((jsonData) => {
+                recipes = jsonData.results
+                randomizer(recipes)
+                imageCreator(recipes)
+            })
+    }
+    else if (dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) {
+        fetch(`${fetchURL}${spicySearch}%2C${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}&excludeIngredients=${dietaryRequirements}&intolerances=${dietaryRequirements}&number=100`, headers)
+            .then((responseData) => {
+                return responseData.json()
+            })
+            .then((jsonData) => {
+                recipes = jsonData.results
+                randomizer(recipes)
+                imageCreator(recipes)
+            })
+    }
+    else {
+        fetch(`${fetchURL}${spicySearch}%2C${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}&diet=${dietaryRequirements}&number=100`, headers)
+            .then((responseData) => {
+                return responseData.json()
+            })
+            .then((jsonData) => {
+                recipes = jsonData.results
+                randomizer(recipes)
+                imageCreator(recipes)
+            })
+    }
     
-// })
+})
 
