@@ -43,8 +43,10 @@ button.addEventListener("click", (evt) => {
     li.textContent = textBar.value
     pantryList.appendChild(li)
     elEyes = document.querySelectorAll('li')
+    //to help with the search query, I want to take any spaces or punctuation out of the string
+    // elEyes[elEyes.length - 1].innerText = elEyes[elEyes.length - 1].innerText.replace(' ', '')
     textBar.value = ''
-    ingredientList.push(elEyes[elEyes.length - 1].innerText)
+    ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '%20'))
     randomizer(ingredientList)
 })
 
