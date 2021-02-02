@@ -3,7 +3,7 @@ console.log('sanity cherk')
 const textBar = document.getElementById("text-bar")
 const button = document.querySelector("button")
 const pantryList = document.querySelector("ul")
-const images = document.getElementById("recipe-container")
+const images = document.getElementById("images")
 const submit = document.getElementById("submit")
 
 //currently defined here to help with console.logging
@@ -14,17 +14,23 @@ let ingredientList = []
 
 const imageCreator = (recipes) => {
     for (let i = 0; i < recipes.length; i++) {
+        //create image elements
         let img = document.createElement("img")
         img.setAttribute("src", `https://spoonacular.com/recipeImages/${recipes[i].image}`)
         img.setAttribute("alt", recipes[i].title)
 
+        //create link elements
         let a = document.createElement("a")
-        a.textContent = img.getAttribute("alt")
         a.setAttribute("href", recipes[i].sourceUrl)
         a.setAttribute("target", "_blank")
         images.appendChild(a)
 
         a.appendChild(img)
+
+        //create p elements
+        let p = document.createElement("p")
+        p.innerText = recipes[i].title
+        document.getElementById("meal-titles").appendChild(p)
 
         if (document.querySelectorAll('img').length === 6) { break }
     }
@@ -54,6 +60,7 @@ submit.addEventListener("click", (evt) => {
     evt.preventDefault()
     // resets images in case 
     images.innerHTML = ''
+    document.getElementById("meal-titles").innerHTML = ''
     fetch(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}`,
     {
             "method": "GET",
