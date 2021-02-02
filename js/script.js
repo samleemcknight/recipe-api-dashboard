@@ -7,15 +7,9 @@ const images = document.getElementById("images")
 const submit = document.getElementById("submit")
 const dietSelector = document.querySelector('select')
 const fetchURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query="
-const headers = {
-    "method": "GET",
-    "headers": {
-        "x-rapidapi-key": "37daf3cd7cmshd6e976bb1dbe4dep11f211jsn70154af64eb3",
-        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
-    } }
 
 let spicyButton = document.getElementById("spicy")
-let spicySearch = null
+let spicySearch = ''
 if (spicyButton.checked === true) {
     spicySearch = "spicy"
 } 
