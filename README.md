@@ -3,6 +3,7 @@ A recipe application that uses the Recipe Puppy API. This recommends recipes bas
 
 Bronze:
 
+
 Silver:
 Make the app responsive for mobile devices.
 
@@ -12,4 +13,8 @@ Additionally, I would like to add an autocomplete function for the text bar to a
 
 Wireframe:
 At its simplest, I would like for the desktop view to be something like this:
-![screenshot of wireframe](./photos/wireframe_screenshot.png)
+![screenshot of wireframe](./assets/wireframe_screenshot.png)
+
+
+![screenshot of desktop view](./assets/desktop-view.png)
+![screenshot of mobile view](./assets/mobile-view.png)

@@ -1,5 +1,3 @@
-console.log('sanity cherk')
-
 const textBar = document.getElementById("text-bar")
 const button = document.getElementById("pantry-button")
 const pantryList = document.querySelector("ul")
@@ -120,7 +118,6 @@ submit.addEventListener("click", (evt) => {
     }    
     // conditional to search with no or otherdietary requierments
     else {
-        console.log(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
         fetch(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
             .then((responseData) => {
                 return responseData.json()
