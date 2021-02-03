@@ -147,12 +147,12 @@ img {
     grid-column: span 1;
     margin: 10px;
     border: solid gray 2px;
-    opacity: 0.9;
+    opacity: 0.4;
     transition: opacity 650ms;
 }
 
 img:hover {
-    opacity: 0;
+    opacity: 1;
 }
 
 #meal-titles {
@@ -166,7 +166,7 @@ img:hover {
 #meal-titles>p {
     margin: 70px 13vw 0 13vw;
     z-index: -1;
-    font-weight: 200;
+    font-weight: 500;
     line-height: 1.5rem;
     text-align: center;
 }
@@ -175,13 +175,13 @@ img:hover {
     body {
         display: grid;
         grid-template-columns: auto 40vw;
-        grid-template-rows: auto 15vh 60vh;
+        grid-template-rows: 10vh auto 60vh;
         grid-template-areas: 
-            "sdbr sdbr"
             "head head"
+            "sdbr sdbr"
             "main main";
     }
-    #submit-button, h1 {
+    i, h1 {
         flex-direction: column;
     }
     #submit {
@@ -191,11 +191,17 @@ img:hover {
         width: 150px;
         height: 150px;
     }
-    #meal-titles>p {
-        font-size: 12px;
-    }
+    
     #images {
-        
+        grid-template-columns: 50vw 50vw;
+    }
+    #meal-titles {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 170px 170px 170px;
+        justify-items: center;
+    }
+    #meal-titles>p {
+        font-size: 10px;
     }
 } 
 

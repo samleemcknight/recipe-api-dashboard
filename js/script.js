@@ -6,7 +6,7 @@ const pantryList = document.querySelector("ul")
 const images = document.getElementById("images")
 const submit = document.getElementById("submit")
 const dietSelector = document.querySelector('select')
-const fetchURL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query="
+const fetchURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=f24d17246c854d4db4be39e3563ea267&query="
 
 let spicyButton = document.getElementById("spicy")
 let spicySearch = ''
@@ -24,12 +24,12 @@ const imageCreator = (recipes) => {
     for (let i = 0; i < recipes.length; i++) {
         //create image elements
         let img = document.createElement("img")
-        img.setAttribute("src", `https://spoonacular.com/recipeImages/${recipes[i].image}`)
+        img.setAttribute("src", `${recipes[i].image}`)
         img.setAttribute("alt", recipes[i].title)
 
         //create link elements
         let a = document.createElement("a")
-        a.setAttribute("href", recipes[i].sourceUrl)
+        a.setAttribute("href", `https://www.google.com/search?q=${recipes[i].title.split(' ').join('+')}+${dietSelector[dietSelector.selectedIndex].textContent}`)
         a.setAttribute("target", "_blank")
         images.appendChild(a)
 
@@ -60,7 +60,7 @@ function createList(evt) {
     //to help with the search query, I want to take any spaces or punctuation out of the string
     // elEyes[elEyes.length - 1].innerText = elEyes[elEyes.length - 1].innerText.replace(' ', '')
     textBar.value = ''
-    ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '%20'))
+    ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '%'))
     randomizer(ingredientList)
 
     //event listener to allow the user to remove list items
@@ -74,16 +74,26 @@ button.addEventListener("click", createList)
 
 submit.addEventListener("click", (evt) => {
     evt.preventDefault()
-    // resets images in case 
+
+    let dietaryRequirements = dietSelector[dietSelector.selectedIndex].textContent
+    if (dietaryRequirements === "gluten-free") {dietaryRequirements = "gluten"}
+    else if (dietaryRequirements === "dairy-free") { dietaryRequirements = "dairy" }
+
+    // resets images and text 
     document.getElementById("meal-titles").innerHTML = ''
     images.innerHTML = ''
-    let dietaryRequirements = dietSelector[dietSelector.selectedIndex].textContent
+
+    // makes it spicy
     if (spicyButton.checked === true) {
-        spicySearch = "spicy"
+        spicySearch = "%spicy"
     } 
 
-    if (dietSelector.selectedIndex === 0) {
-        fetch(`${fetchURL}${spicySearch}%2C${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}&number=100`, headers)
+    // to search with all ingredients:
+    // `${fetchURL}${spicySearch}%2C${ingredients.join('%20')}&diet=${dietaryRequirements}&number=6`
+
+    // conditional to search with dietary intolerances (dairy and gluten-free)
+    if (dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) {
+        fetch(`${fetchURL}${ingredientList[0]}&${ingredientList[1]}&${ingredientList[2]}${spicySearch}&intolerances=${dietaryRequirements}&number=6`)
             .then((responseData) => {
                 return responseData.json()
             })
@@ -92,20 +102,10 @@ submit.addEventListener("click", (evt) => {
                 randomizer(recipes)
                 imageCreator(recipes)
             })
-    }
-    else if (dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) {
-        fetch(`${fetchURL}${spicySearch}%2C${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}&excludeIngredients=${dietaryRequirements}&intolerances=${dietaryRequirements}&number=100`, headers)
-            .then((responseData) => {
-                return responseData.json()
-            })
-            .then((jsonData) => {
-                recipes = jsonData.results
-                randomizer(recipes)
-                imageCreator(recipes)
-            })
-    }
+    }    
+    // conditional to search with no or otherdietary requierments
     else {
-        fetch(`${fetchURL}${spicySearch}%2C${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}&diet=${dietaryRequirements}&number=100`, headers)
+        fetch(`${fetchURL}${ingredientList[0]}&${ingredientList[1]}&${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
             .then((responseData) => {
                 return responseData.json()
             })
@@ -114,7 +114,6 @@ submit.addEventListener("click", (evt) => {
                 randomizer(recipes)
                 imageCreator(recipes)
             })
-    }
-    
+    }  
 })
 
