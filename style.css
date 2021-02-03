@@ -18,7 +18,7 @@ body {
 
 .head {
     grid-area: head;
-    background: linear-gradient(#cbcbf5e1, rgba(255, 245, 238, 0.945));
+    background: linear-gradient(#cbcbf5e1 30%, rgba(255, 245, 238, 0.945));
     justify-items: center;
 }
 
@@ -76,7 +76,6 @@ h1 {
 
 #text-bar {
     margin: 20px 10px 0 10px;
-    display: flex;
     align-items: center;
     text-align: center;
 }
@@ -119,14 +118,13 @@ h1 {
 
 #spicy-option {
     margin: 10px auto;
-    /* margin-left: 20px;
-    margin-top: 10px; */
+    text-align: center;
 }
 
 label {
     font-size: 0.8rem;
     font-family: Helvetica;
-    font-weight: 150;
+    font-weight: 500;
     align-items: center;
     font-style: italic;
 }
@@ -138,12 +136,11 @@ ul {
 
 li {
     margin-top: 10px;
-    margin-left: 50px;
     font-family: Helvetica;
     font-weight: 300;
     list-style-type: none;
     display: flex;
-    justify-items: center;
+    justify-content: center;
 }
 
 li:hover {
@@ -264,7 +261,6 @@ img:hover {
 
 #meal-titles>p {
     margin: 70px 13vw 0 13vw;
-    z-index: -1;
     font-weight: 500;
     line-height: 1.5rem;
     text-align: center;
@@ -283,29 +279,55 @@ img:hover {
     i, h1 {
         flex-direction: column;
     }
-    #submit {
+    
+    #text-bar {
+        margin-left: 75px;
+        margin-right: 75px;
+        height: 2rem;
+        font-size: 1rem;
+    }
+
+    #diet {
+        margin-bottom: 0;
+    }
+
+    #spicy-option {
+        margin: 5px;
+        text-align: center;
+    }
+
+    #submit-button {
+        margin-bottom: 3px;
+    }
+
+    li {
+        margin-top: 3px;
         justify-content: center;
+        
     }
     img {
         width: 150px;
         height: 150px;
+        opacity: 0.5;
+    } 
+
+    img:hover {
+        opacity: 0.5;
     }
     
     #images {
         grid-template-columns: 50vw 50vw;
+        grid-template-rows: 170px 170px 170px;
     }
     #meal-titles {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 50vw 50vw;
         grid-template-rows: 170px 170px 170px;
-        justify-items: center;
+
     }
     #meal-titles>p {
+        display: flex;
+        align-items: center;
         font-size: 10px;
+        margin-bottom: 70px;
     }
 } 
-
-/* haven't formated for larger screens yet */
-
-/* @media only screen and (min-width: 1024px) {
-    
-} */
