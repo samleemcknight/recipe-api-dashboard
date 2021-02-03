@@ -14,15 +14,15 @@
     <script defer src="https://kit.fontawesome.com/3df4f3cd02.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <section id="submit-button" class="head">
+    <section id="header" class="head">
         <h1>Need a Recipe Idea?</h1>
+        <!-- add different icon here -->
         <i class="fas fa-chevron-circle-right fa-lg"></i>
-        <!-- <input type="submit" id="submit"> -->
     </section>
             
     <form id="pantry" class="sidebar">
         <input type="text" id="text-bar" placeholder="add an ingredient here">
-        <button>add to pantry</button>
+        <button id="pantry-button">add to pantry</button>
         <p>Dietary Requirements:</p>
         <select name="diet" id="diet">
             <option></option>
@@ -35,10 +35,19 @@
             <input type="checkbox" id="spicy" name="spicy">
             <label for="spicy">make it spicy!</label>
         </div>
-        <button id="submit">Let's Get Cooking!</button>
-        <ul>
-            <!-- pantry will populate here -->
-        </ul>
+        <button id="submit-button">Let's Get Cooking!</button>
+        <!-- <section class="kitchen" id="cabinet">
+            <div id="left-side" class="kitchen">
+                <div id="left-handle"></div>
+            </div>
+            <div id="right-side" class="kitchen">
+                <div id="right-handle"></div>
+
+            </div> -->
+            <ul>
+                <!-- pantry will populate here -->
+            </ul>
+        <!-- </section> -->
     </form>
     
     <div id="recipe-container" class="main">
@@ -52,12 +61,12 @@
             <!-- recipes will populate here -->
         </div>
         <div id="meal-titles">
-            <p>Falafel with parsley and yogurt dipping sauce</p>
-            <p>Falafel with parsley and yogurt dipping sauce</p>
-            <p>Falafel with parsley and yogurt dipping sauce</p>
-            <p>Falafel with parsley and yogurt dipping sauce</p>
-            <p>Falafel with parsley and yogurt dipping sauce</p>
-            <p>Falafel with parsley and yogurt dipping sauce</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         </div>
     </div>
 </body>

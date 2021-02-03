@@ -1,10 +1,10 @@
 console.log('sanity cherk')
 
 const textBar = document.getElementById("text-bar")
-const button = document.querySelector("button")
+const button = document.getElementById("pantry-button")
 const pantryList = document.querySelector("ul")
 const images = document.getElementById("images")
-const submit = document.getElementById("submit")
+const submit = document.getElementById("submit-button")
 const dietSelector = document.querySelector('select')
 const fetchURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=f24d17246c854d4db4be39e3563ea267&query="
 
@@ -50,6 +50,19 @@ function randomizer(arr) {
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
+
+// simple door animation from Codepen: https://codepen.io/am_eu/pen/EgZdaQ
+// const leftDoor = document.getElementById("left-side")
+// const rightDoor = document.getElementById("right-side")
+
+// leftDoor.addEventListener("click", doorOpen)
+// rightDoor.addEventListener("click", doorOpen)
+
+// function doorOpen() {
+//     leftDoor.classList.toggle("door-open-left")
+//     rightDoor.classList.toggle("door-open-right")
+// }
+
 function createList(evt) {
     evt.preventDefault()
     let li = document.createElement("li")
@@ -60,7 +73,7 @@ function createList(evt) {
     //to help with the search query, I want to take any spaces or punctuation out of the string
     // elEyes[elEyes.length - 1].innerText = elEyes[elEyes.length - 1].innerText.replace(' ', '')
     textBar.value = ''
-    ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '%'))
+    ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '&'))
     randomizer(ingredientList)
 
     //event listener to allow the user to remove list items
@@ -68,6 +81,8 @@ function createList(evt) {
         ingredientList = ingredientList.filter(word => word !== li.textContent)
         li.textContent = ''
     })
+    // opens door if no elements have been given 
+    // if (elEyes.length === 1) { doorOpen()}
 }
 
 button.addEventListener("click", createList)
@@ -85,7 +100,7 @@ submit.addEventListener("click", (evt) => {
 
     // makes it spicy
     if (spicyButton.checked === true) {
-        spicySearch = "%spicy"
+        spicySearch = "%2Cspicy"
     } 
 
     // to search with all ingredients:
@@ -93,7 +108,7 @@ submit.addEventListener("click", (evt) => {
 
     // conditional to search with dietary intolerances (dairy and gluten-free)
     if (dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) {
-        fetch(`${fetchURL}${ingredientList[0]}&${ingredientList[1]}&${ingredientList[2]}${spicySearch}&intolerances=${dietaryRequirements}&number=6`)
+        fetch(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&intolerances=${dietaryRequirements}&number=6`)
             .then((responseData) => {
                 return responseData.json()
             })
@@ -105,7 +120,8 @@ submit.addEventListener("click", (evt) => {
     }    
     // conditional to search with no or otherdietary requierments
     else {
-        fetch(`${fetchURL}${ingredientList[0]}&${ingredientList[1]}&${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
+        console.log(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
+        fetch(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
             .then((responseData) => {
                 return responseData.json()
             })
