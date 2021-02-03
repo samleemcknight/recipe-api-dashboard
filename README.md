@@ -36,7 +36,7 @@ At its simplest, I wanted the desktop view to be something like this:
 For the sake of time, I kept this view roughly the same and did not greatly change it in order to give myself enough time to make a workable mobile view
 
 <img src="./assets/desktop-view.png" width="60%" alt="screenshot of desktop view">
-<img src="../assets/mobile-view.png" width="20%" alt="screenshot of mobile view">
+<img src="./assets/mobile-view.png" width="20%" alt="screenshot of mobile view">
 
 ## Eventuals 
 There are a few things I would *eventually* like to do:
