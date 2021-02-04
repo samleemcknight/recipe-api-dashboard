@@ -37,6 +37,29 @@ const imageCreator = (recipes) => {
         p.innerText = recipes[i].title
         document.getElementById("meal-titles").appendChild(p)
 
+        //list used ingredients
+        let usedIng = []
+        let p2 = document.createElement("p")
+        p2.setAttribute("class", "used-ingredients")
+        for (let j = 0; j < recipes[i].usedIngredients.length; j++) {
+            usedIng.push(recipes[i].usedIngredients[j].name)
+        }
+        p2.innerText = `Uses: ${usedIng.join(", ")}`
+        p.appendChild(p2)
+
+        //list other required ingredients
+        if (recipes[i].missedIngredients.length > 0) {
+            let reqIng = []
+            let p3 = document.createElement("p")
+            p3.setAttribute("class", "missed-ingredients")
+            for (let index = 0; index < recipes[i].missedIngredients.length; index++) {
+                reqIng.push(recipes[i].missedIngredients[index].name)
+            }
+            p3.innerText = `Requires: ${reqIng.join(", ")}`
+            p2.appendChild(p3)
+        }
+        
+
         if (document.querySelectorAll('img').length === 6) { break }
     }
 }
