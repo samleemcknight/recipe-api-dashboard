@@ -7,11 +7,11 @@ body {
     font-family: 'Spartan', sans-serif;
     display: grid;
     grid-template-columns: 1fr 80vw;
-    grid-template-rows: 15vw 90vh;
+    grid-template-rows: 15vh 90vh;
     grid-template-areas: 
         "sdbr head"
         "sdbr main";
-    background-color: rgb(238, 223, 212);
+    background-color: seashell;
 }
 
 /* head */
@@ -54,8 +54,11 @@ h1 {
 
 .sidebar {
     grid-area: sdbr;
-    border-right: 1px solid rgb(138, 136, 132);
-    background-color: seashell;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    position: fixed;
+    width: 20vw;
+    padding-bottom: 10px;
 }
 
 #pantry {
@@ -166,7 +169,7 @@ li:hover {
 }
 
 #images>a {
-    z-index: 1;
+    z-index: 0;
 }
 
 img {
@@ -181,9 +184,6 @@ img {
     transition: opacity 650ms;
 }
 
-img:hover {
-    opacity: 1;
-}
 
 #meal-titles {
     position: absolute;
@@ -194,7 +194,7 @@ img:hover {
 }
 
 #meal-titles>p {
-    margin: auto 8vw auto 8vw;
+    margin: auto 11vw auto 11vw;
     align-items: center;
     font-weight: 500;
     line-height: 1.2rem;
@@ -205,14 +205,25 @@ img:hover {
     margin-top: 10px;
     font-size: 0.8rem;
     line-height: 1rem;
-}
-.missed-ingredients {
-    margin-top: 5px;
-    font-size: 0.8rem;
-    line-height: 1rem;
+    opacity: 0;
+    transition: opacity, 650ms;
+    z-index: 2;
 }
 
-@media only screen and (max-width: 800px) {
+.missed-ingredients {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    line-height: 1rem;
+    opacity: 0;
+    transition: opacity, 700ms;
+    z-index: 2;
+}
+
+.used-ingredients:hover, .missed-ingredients:hover {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 700px) {
     body {
         display: grid;
         grid-template-columns: auto 40vw;
@@ -224,6 +235,14 @@ img:hover {
     }
     i, h1 {
         flex-direction: column;
+    }
+    .sidebar {
+        grid-area: sdbr;
+        position: relative;
+        width: auto;
+        padding-bottom: 10px;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
     }
     
     #text-bar {
@@ -257,8 +276,9 @@ img:hover {
         opacity: 0.5;
     } 
 
-    img:hover {
-        opacity: 0.5;
+    .missed-ingredients, .used-ingredients {
+        opacity: 1;
+        transition: none;
     }
     
     #images {
