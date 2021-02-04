@@ -18,7 +18,8 @@ body {
 
 .head {
     grid-area: head;
-    background: linear-gradient(#3636e9e1 30%, rgba(255, 245, 238, 0.945));
+    background-color: #3636e9e1;
+    border-bottom: 1px solid black;
     justify-items: center;
 }
 
@@ -273,10 +274,20 @@ img:hover {
 
     }
     #meal-titles>p {
-        display: flex;
-        margin: auto 13vw auto 13vw;
+        margin: auto 10vw auto 10vw;
         align-items: center;
         font-size: 10px;
-        margin-bottom: 70px;
+        margin-bottom: 25px;
+        line-height: 0.7rem;
+    }
+    .used-ingredients {
+        margin-top: 10px;
+        font-size: 0.5rem;
+        line-height: 0.5rem;
+    }
+    .missed-ingredients {
+        margin-top: 5px;
+        font-size: 0.5rem;
+        line-height: 0.5rem;
     }
 } 
