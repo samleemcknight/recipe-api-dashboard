@@ -1,10 +1,16 @@
 # Find Me a Recipe
-A recipe application that uses the Recipe Puppy API. This recommends recipes based on what the user has in his or her “pantry”: a user-built list of on-hand ingredients. 
+Find me a Recipe is a recipe application that uses the Spoonacular API. It recommends recipes based on what the user has in his or her “pantry”: a user-built list of on-hand ingredients. 
+
+The user can select dietary requirements to try to find more specific recipes. However, given the results provided by the API, the ingredient search takes precedence over the diet. In other words, a dairy-free search might very well fetch results with dairy ingredients. This is an aspect that I want to resolve (see eventuals). 
 
 ## Techonologies Used
 The app runs off of AJAX .fetch requests to the Spoonacular API. Once a user inputs ingredients, the ingredients are picked up by the DOM and passed into a request URL to the API. The fetched data is parsed and used to create the images and titles.
 
-The original API I was working with would also provide URL's to the recipe itself. To sidestep this issue, I used the incoming data to create a specific google search that usually provides the given recipe.
+The original API would also provide URL's to the recipe itself. To sidestep this issue, I used the incoming data to create a specific google search that usually provides the given recipe.
+
+In addition to recipe suggestions, the user is also given an idea of how many more ingredients they will need to complete the recipe:
+
+![screenshot example](./assets/recipe_screenshot.png)
 
 ## Installation instructions
 
@@ -35,8 +41,11 @@ At its simplest, I wanted the desktop view to be something like this:
 
 For the sake of time, I kept this view roughly the same and did not greatly change it in order to give myself enough time to make a workable mobile view
 
-<img src="./assets/desktop-view.png" width="60%" alt="screenshot of desktop view">
-<img src="./assets/mobile-view.png" width="20%" alt="screenshot of mobile view">
+### Desktop View:
+<img src="./assets/desktop-view.png" width="100%" alt="screenshot of desktop view">
+
+### Mobile View:
+<img src="./assets/mobile-view.png" width="40%" alt="screenshot of mobile view">
 
 ## Eventuals 
 There are a few things I would *eventually* like to do:
@@ -44,4 +53,5 @@ There are a few things I would *eventually* like to do:
 - Add a "search with all ingredients" option
 - Include serving size and prep time
 - Expand the number of dietary preferences
+- Ensure that the dietary requirements restrict the searches to a greater degree than they do
 - *Eventually, eventually* I would like this to be a mobile-only app that will store users' ingredients in order to remind the user that certain ingredients might be going bad, and that those should be used soon.
