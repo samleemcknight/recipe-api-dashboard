@@ -4,7 +4,7 @@ const pantryList = document.querySelector("ul")
 const images = document.getElementById("images")
 const submit = document.getElementById("submit-button")
 const dietSelector = document.querySelector('select')
-const fetchURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=f24d17246c854d4db4be39e3563ea267&query="
+const fetchURL = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=f24d17246c854d4db4be39e3563ea267&ingredients="
 
 let spicyButton = document.getElementById("spicy")
 let spicySearch = ''
@@ -13,7 +13,6 @@ if (spicyButton.checked === true) {
 } 
 
 //currently defined here to help with console.logging
-let elEyes = null
 let recipes = null
 
 let ingredientList = []
@@ -49,41 +48,34 @@ function randomizer(arr) {
     }
 }
 
-// simple door animation from Codepen: https://codepen.io/am_eu/pen/EgZdaQ
-// const leftDoor = document.getElementById("left-side")
-// const rightDoor = document.getElementById("right-side")
-
-// leftDoor.addEventListener("click", doorOpen)
-// rightDoor.addEventListener("click", doorOpen)
-
-// function doorOpen() {
-//     leftDoor.classList.toggle("door-open-left")
-//     rightDoor.classList.toggle("door-open-right")
-// }
-
 function createList(evt) {
     evt.preventDefault()
     let li = document.createElement("li")
     li.setAttribute('title', 'click to remove')
     li.textContent = textBar.value
     pantryList.appendChild(li)
-    elEyes = document.querySelectorAll('li')
     //to help with the search query, I want to take any spaces or punctuation out of the string
     // elEyes[elEyes.length - 1].innerText = elEyes[elEyes.length - 1].innerText.replace(' ', '')
     textBar.value = ''
-    ingredientList.push(elEyes[elEyes.length - 1].innerText.replace(' ', '&'))
+    ingredientList.push(li.textContent.replace(' ', '%20'))
     randomizer(ingredientList)
 
     //event listener to allow the user to remove list items
     li.addEventListener("click", (evt) => {
+        pantryList.removeChild(li)
         ingredientList = ingredientList.filter(word => word !== li.textContent)
-        li.textContent = ''
+        ingredientList = ingredientList.filter(word => word !== li.textContent.replace(' ', '%20'))
     })
-    // opens door if no elements have been given 
-    // if (elEyes.length === 1) { doorOpen()}
 }
 
 button.addEventListener("click", createList)
+
+function userErrorMessage() {
+    let message = document.createElement('h2')
+    message.setAttribute("class", "error-message")
+    message.textContent = "Oops! There appear to be no recipes with that search criteria. Try deleting one or two ingredients and search again!"
+    images.appendChild(message)
+}
 
 submit.addEventListener("click", (evt) => {
     evt.preventDefault()
@@ -102,30 +94,40 @@ submit.addEventListener("click", (evt) => {
     } 
 
     // to search with all ingredients:
-    // `${fetchURL}${spicySearch}%2C${ingredients.join('%20')}&diet=${dietaryRequirements}&number=6`
+    // `${fetchURL}${ingredients.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=10`
 
     // conditional to search with dietary intolerances (dairy and gluten-free)
     if (dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) {
-        fetch(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&intolerances=${dietaryRequirements}&number=6`)
+        console.log(`${fetchURL}${ingredientList[0]},+${ingredientList[1]},+${ingredientList[2]}${spicySearch}&intolerances=${dietaryRequirements}&number=10`)
+        fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&intolerances=${dietaryRequirements}&number=10`)
             .then((responseData) => {
                 return responseData.json()
             })
             .then((jsonData) => {
-                recipes = jsonData.results
+                recipes = jsonData
                 randomizer(recipes)
                 imageCreator(recipes)
+                if (recipes.length < 1) { userErrorMessage()}  
             })
+            .catch(err => {
+                console.error(err);
+            });
     }    
     // conditional to search with no or otherdietary requierments
     else {
-        fetch(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=6`)
+        console.log(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=10`)
+        fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=10`)
             .then((responseData) => {
                 return responseData.json()
             })
             .then((jsonData) => {
-                recipes = jsonData.results
+                recipes = jsonData
                 randomizer(recipes)
                 imageCreator(recipes)
+                if (recipes.length < 1) { userErrorMessage() }
+            })
+            .catch(err => {
+                console.error(err);
             })
     }  
 })
