@@ -7,18 +7,18 @@ body {
     font-family: 'Spartan', sans-serif;
     display: grid;
     grid-template-columns: 1fr 80vw;
-    grid-template-rows: 15vh 100vh;
+    grid-template-rows: 15vw 90vh;
     grid-template-areas: 
         "sdbr head"
         "sdbr main";
-    background-color: seashell;
+    background-color: rgb(238, 223, 212);
 }
 
 /* head */
 
 .head {
     grid-area: head;
-    background-color: #3636e9e1;
+    background-color: #4848dfe1;
     border-bottom: 1px solid black;
     justify-items: center;
 }
@@ -26,7 +26,7 @@ body {
 h1 {
     text-align: center;
     position: relative;
-    margin: 10px;
+    margin-top: 15px;
     opacity: 0.7;
 }
 
@@ -34,7 +34,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 3rem;
+    height: 4rem;
 }
 
 .head>i {
@@ -55,6 +55,7 @@ h1 {
 .sidebar {
     grid-area: sdbr;
     border-right: 1px solid rgb(138, 136, 132);
+    background-color: seashell;
 }
 
 #pantry {
@@ -130,11 +131,6 @@ label {
     font-style: italic;
 }
 
-ul {
-    /* position: absolute; */
-    /* z-index: 0; */
-}
-
 li {
     margin-top: 10px;
     font-family: Helvetica;
@@ -151,10 +147,11 @@ li:hover {
 /* main content */
 
 .error-message {
+    position: absolute;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content:space-evenly;
     text-align: center;
+    margin: 30px 30px 0 30px;
 }
 
 .main {
@@ -215,7 +212,7 @@ img:hover {
     line-height: 1rem;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
     body {
         display: grid;
         grid-template-columns: auto 40vw;

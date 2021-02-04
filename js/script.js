@@ -96,7 +96,14 @@ button.addEventListener("click", createList)
 function userErrorMessage() {
     let message = document.createElement('h2')
     message.setAttribute("class", "error-message")
-    message.textContent = "Oops! There appear to be no recipes with that search criteria. Try deleting one or two ingredients and search again!"
+    message.textContent = "Oops! There appear to be no recipes with that search criteria. Try adjusting your search terms."
+    images.appendChild(message)
+}
+
+function userErrorMessage2() {
+    let message = document.createElement('h2')
+    message.setAttribute("class", "error-message")
+    message.textContent = "Uh-oh! You don't have any ingredients in your pantry!"
     images.appendChild(message)
 }
 
@@ -116,12 +123,8 @@ submit.addEventListener("click", (evt) => {
         spicySearch = "%2Cspicy"
     } 
 
-    // to search with all ingredients:
-    // `${fetchURL}${ingredients.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=10`
-
     // conditional to search with dietary intolerances (dairy and gluten-free)
-    if (dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) {
-        console.log(`${fetchURL}${ingredientList[0]},+${ingredientList[1]},+${ingredientList[2]}${spicySearch}&intolerances=${dietaryRequirements}&number=10`)
+    if ((dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) && ingredientList.length > 0) {
         fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&intolerances=${dietaryRequirements}&number=10`)
             .then((responseData) => {
                 return responseData.json()
@@ -137,8 +140,7 @@ submit.addEventListener("click", (evt) => {
             });
     }    
     // conditional to search with no or otherdietary requierments
-    else {
-        console.log(`${fetchURL}${ingredientList[0]}%2C${ingredientList[1]}%2C${ingredientList[2]}${spicySearch}&diet=${dietaryRequirements}&number=10`)
+    else if (ingredientList.length > 0) {
         fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=10`)
             .then((responseData) => {
                 return responseData.json()
@@ -152,6 +154,8 @@ submit.addEventListener("click", (evt) => {
             .catch(err => {
                 console.error(err);
             })
-    }  
+    } else {
+        userErrorMessage2()
+    } 
 })
 
