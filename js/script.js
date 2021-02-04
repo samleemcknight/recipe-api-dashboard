@@ -9,7 +9,7 @@ const fetchURL = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=f
 let spicyButton = document.getElementById("spicy")
 let spicySearch = ''
 if (spicyButton.checked === true) {
-    spicySearch = "spicy"
+    spicySearch = "%2Cspicy"
 } 
 
 //currently defined here to help with console.logging
@@ -55,7 +55,7 @@ const imageCreator = (recipes) => {
             for (let index = 0; index < recipes[i].missedIngredients.length; index++) {
                 reqIng.push(recipes[i].missedIngredients[index].name)
             }
-            p3.innerText = `Requires: ${reqIng.join(", ")}`
+            p3.innerText = `Also requires: ${reqIng.join(", ")}`
             p2.appendChild(p3)
         }
         
@@ -117,11 +117,6 @@ submit.addEventListener("click", (evt) => {
     // resets images and text 
     document.getElementById("meal-titles").innerHTML = ''
     images.innerHTML = ''
-
-    // makes it spicy
-    if (spicyButton.checked === true) {
-        spicySearch = "%2Cspicy"
-    } 
 
     // conditional to search with dietary intolerances (dairy and gluten-free)
     if ((dietSelector.selectedIndex === 1 || dietSelector.selectedIndex === 2) && ingredientList.length > 0) {
