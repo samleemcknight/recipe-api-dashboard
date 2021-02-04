@@ -18,7 +18,7 @@ body {
 
 .head {
     grid-area: head;
-    background: linear-gradient(#cbcbf5e1 30%, rgba(255, 245, 238, 0.945));
+    background: linear-gradient(#3636e9e1 30%, rgba(255, 245, 238, 0.945));
     justify-items: center;
 }
 
