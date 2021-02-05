@@ -24,18 +24,19 @@ const imageCreator = (recipes) => {
         img.setAttribute("src", `${recipes[i].image}`)
         img.setAttribute("alt", recipes[i].title)
 
+        
+
+        images.appendChild(img)
+
+        //create p elements
         //create link elements
         let a = document.createElement("a")
         a.setAttribute("href", `https://www.google.com/search?q=${recipes[i].title.split(' ').join('+')}+${dietSelector[dietSelector.selectedIndex].textContent}`)
         a.setAttribute("target", "_blank")
-        images.appendChild(a)
-
-        a.appendChild(img)
-
-        //create p elements
+        document.getElementById("meal-titles").appendChild(a)
         let p = document.createElement("p")
         p.innerText = recipes[i].title
-        document.getElementById("meal-titles").appendChild(p)
+        a.appendChild(p)
 
         //list used ingredients
         let usedIng = []
