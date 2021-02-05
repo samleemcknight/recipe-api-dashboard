@@ -5,6 +5,8 @@ const images = document.getElementById("images")
 const submit = document.getElementById("submit-button")
 const dietSelector = document.querySelector('select')
 const fetchURL = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=f24d17246c854d4db4be39e3563ea267&ingredients="
+let recipes = null
+let ingredientList = []
 
 let spicyButton = document.getElementById("spicy")
 let spicySearch = ''
@@ -12,24 +14,19 @@ if (spicyButton.checked === true) {
     spicySearch = "%2Cspicy"
 } 
 
-//currently defined here to help with console.logging
-let recipes = null
-
-let ingredientList = []
-
 const imageCreator = (recipes) => {
+    //random-izes recipe results to ensure that the first six images are not always the same
+    randomizer(recipes)
+
     for (let i = 0; i < recipes.length; i++) {
         //create image elements
         let img = document.createElement("img")
         img.setAttribute("src", `${recipes[i].image}`)
         img.setAttribute("alt", recipes[i].title)
 
-        
-
         images.appendChild(img)
 
-        //create p elements
-        //create link elements
+        //create p elements and attach to link elements
         let a = document.createElement("a")
         a.setAttribute("href", `https://www.google.com/search?q=${recipes[i].title.split(' ').join('+')}+${dietSelector[dietSelector.selectedIndex].textContent}`)
         a.setAttribute("target", "_blank")
@@ -58,8 +55,7 @@ const imageCreator = (recipes) => {
             }
             p3.innerText = `Also requires: ${reqIng.join(", ")}`
             p2.appendChild(p3)
-        }
-        
+        } 
 
         if (document.querySelectorAll('img').length === 6) { break }
     }
@@ -78,11 +74,11 @@ function createList(evt) {
     li.setAttribute('title', 'click to remove')
     li.textContent = textBar.value
     pantryList.appendChild(li)
-    //to help with the search query, I want to take any spaces or punctuation out of the string
-    // elEyes[elEyes.length - 1].innerText = elEyes[elEyes.length - 1].innerText.replace(' ', '')
+    //to help with the search query, I want to eventually take any spaces or punctuation out of the string in case they were included
+    //I'm not very good with regex at the moment, however, so I'll save that for later
+    // li.textContent = li.textContent.replace(' ', '')
     textBar.value = ''
     ingredientList.push(li.textContent.replace(' ', '%20'))
-    randomizer(ingredientList)
 
     //event listener to allow the user to remove list items
     li.addEventListener("click", (evt) => {
@@ -94,6 +90,7 @@ function createList(evt) {
 
 button.addEventListener("click", createList)
 
+// functions for user error messages
 function userErrorMessage() {
     let message = document.createElement('h2')
     message.setAttribute("class", "error-message")
@@ -107,7 +104,9 @@ function userErrorMessage2() {
     message.textContent = "Uh-oh! You don't have any ingredients in your pantry!"
     images.appendChild(message)
 }
+//
 
+// AJAX request function
 submit.addEventListener("click", (evt) => {
     evt.preventDefault()
 
@@ -127,7 +126,6 @@ submit.addEventListener("click", (evt) => {
             })
             .then((jsonData) => {
                 recipes = jsonData
-                randomizer(recipes)
                 imageCreator(recipes)
                 if (recipes.length < 1) { userErrorMessage()}  
             })
@@ -143,7 +141,6 @@ submit.addEventListener("click", (evt) => {
             })
             .then((jsonData) => {
                 recipes = jsonData
-                randomizer(recipes)
                 imageCreator(recipes)
                 if (recipes.length < 1) { userErrorMessage() }
             })
