@@ -133,7 +133,7 @@ submit.addEventListener("click", (evt) => {
                 console.error(err);
             });
     }    
-    // conditional to search with no or otherdietary requierments
+    // conditional to search with no or other dietary requierments
     else if (ingredientList.length > 0) {
         fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=10`)
             .then((responseData) => {
