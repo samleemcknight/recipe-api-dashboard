@@ -60,7 +60,6 @@ const imageCreator = (recipes) => {
         if (document.querySelectorAll('img').length === 6) { break }
     }
 }
-
 function randomizer(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -133,14 +132,15 @@ submit.addEventListener("click", (evt) => {
                 console.error(err);
             });
     }    
-    // conditional to search with no or otherdietary requierments
+    // conditional to search with no or other dietary requierments
     else if (ingredientList.length > 0) {
-        fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=10`)
+        fetch(`${fetchURL}${ingredientList.join(',+')}${spicySearch}&diet=${dietaryRequirements}&number=20`)
             .then((responseData) => {
                 return responseData.json()
             })
             .then((jsonData) => {
                 recipes = jsonData
+                console.log(recipes)
                 imageCreator(recipes)
                 if (recipes.length < 1) { userErrorMessage() }
             })
@@ -152,3 +152,4 @@ submit.addEventListener("click", (evt) => {
     } 
 })
 
+window.addEventListener('load', imageCreator(faveMeal))
