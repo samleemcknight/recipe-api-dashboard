@@ -54,5 +54,6 @@ There are a few things I would *eventually* like to do:
 - Include serving size and prep time
 - Expand the number of dietary preferences
 - include a "clear pantry" button
+- allow multiple ingredient to be put into individual li's 
 - Ensure that the dietary requirements restrict the searches to a greater degree than they do
 - *Eventually, eventually* I would like this to be a mobile-only app that will store users' ingredients in order to remind the user that certain ingredients might be going bad, and that those should be used soon.
